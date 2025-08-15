@@ -118,8 +118,6 @@
 
   <script>
     // Sample prompts data - in a real app this would come from a JSON file
-    let allPrompts = [];
-let filteredPrompts = [];
 
 async function loadPrompts() {
   try {
@@ -137,8 +135,7 @@ async function loadPrompts() {
 
     document.addEventListener('DOMContentLoaded', () => {
       // State management
-      let allPrompts = samplePrompts;
-      let filteredPrompts = [...samplePrompts];
+    
       const categoryColors = {
         'ChatGPT': 'bg-blue-100 text-blue-800',
         'MidJourney': 'bg-purple-100 text-purple-800',
@@ -237,7 +234,7 @@ async function loadPrompts() {
     console.log("Loaded prompts from GitHub:", data);
     allPrompts = data;
     filteredPrompts = [...allPrompts];
-    renderPrompts(filteredPrompts); // this function already exists in your file
+  
   } catch (err) {
     console.error("Error loading prompts:", err);
     document.getElementById("promptContainer").innerHTML =
@@ -261,6 +258,7 @@ window.onload = loadPrompts;
 </body>
 
 </html>
+
 
 
 
