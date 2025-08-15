@@ -5,271 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Prompt Collections</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#4f46e5',
-            secondary: '#818cf8'
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 1.5rem;
-    }
-    
-    @media (max-width: 640px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .truncate-3 {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    
-    .fade-in {
-      animation: fadeIn 0.3s ease-in-out;
-    }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
 </head>
-<body class="bg-white font-sans">
-  <!-- Header -->
-  <header class="border-b border-gray-200 py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900">AI Prompt Collections</h1>
-        <p class="mt-2 text-lg text-gray-600">Curated JSON list of the best prompts for ChatGPT, MidJourney & more</p>
-    </div>
+<body class="bg-gray-50 text-gray-800">
+
+  <header class="bg-white shadow p-4 text-center">
+    <h1 class="text-2xl font-bold">AI Prompt Collections</h1>
+    <p class="text-gray-500">Curated JSON list of best prompts for ChatGPT, MidJourney, etc.</p>
   </header>
 
-  <!-- Controls -->
-  <section class="py-6 px-4 sm:px-6 lg:px-8 bg-gray-50">
-    <div class="max-w-7xl mx-auto">
-      <div class="flex flex-col md:flex-row gap-4">
-        <div class="flex-1">
-          <div class="relative rounded-md shadow-sm">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <i class="fas fa-search text-gray-400"></i>
-            </div>
-            <input 
-              type="text" 
-              id="searchInput" 
-              placeholder="Search prompts..." 
-              class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm"
-            >
-          </div>
-        </div>
-        
-        <div class="flex gap-4">
-          <div class="w-48">
-            <select id="categoryFilter" class="block w-full py-3 pl-3 pr-10 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm">
-              <option value="all">All Categories</option>
-              <option value="ChatGPT">ChatGPT</option>
-              <option value="MidJourney">MidJourney</option>
-              <option value="StableDiffusion">StableDiffusion</option>
-              <option value="Productivity">Productivity</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Writing">Writing</option>
-              <option value="Coding">Coding</option>
-            </select>
-          </div>
-          
-          <button id="randomButton" class="px-6 py-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-            Random Prompt
-          </button>
-        </div>
-      </div>
+  <main class="max-w-4xl mx-auto p-6">
+    <div class="flex items-center gap-4 mb-6">
+      <input id="searchInput" type="text" placeholder="Search prompts..." class="flex-grow border p-2 rounded-lg shadow-sm">
+      <button onclick="showRandomPrompt()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow">Random Prompt</button>
     </div>
-  </section>
 
-  <!-- Main Content -->
-  <main class="py-8 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
-      <div id="promptContainer" class="card-grid">
-        <!-- Prompt cards will be dynamically inserted here -->
-      </div>
-    </div>
+    <div id="promptContainer" class="grid gap-4"></div>
   </main>
 
-  <!-- Footer -->
-  <footer class="py-6 px-4 sm:px-6 lg:px-8 border-t border-gray-200">
-    <div class="max-w-7xl mx-auto text-center">
-      <p class="text-gray-500">Made with <span class="text-red-500">❤️</span> – AI Prompt Collections</p>
-    </div>
-  </footer>
-
   <script>
-    // Sample prompts data - in a real app this would come from a JSON file
+    let allPrompts = [];
+    let filteredPrompts = [];
 
-async function loadPrompts() {
-  try {
-   const res = await fetch("prompts.json");
-    allPrompts = await res.json();
-    filteredPrompts = [...allPrompts];
-    renderPrompts(filteredPrompts);
-  } catch (err) {
-    console.error("Error loading prompts:", err);
-    document.getElementById("promptContainer").innerHTML =
-      "<p class='text-red-500'>Failed to load prompts. Please try again later.</p>";
-  }
-}
-
-
-    document.addEventListener('DOMContentLoaded', () => {
-      // State management
-    
-      const categoryColors = {
-        'ChatGPT': 'bg-blue-100 text-blue-800',
-        'MidJourney': 'bg-purple-100 text-purple-800',
-        'StableDiffusion': 'bg-pink-100 text-pink-800',
-        'Productivity': 'bg-green-100 text-green-800',
-        'Marketing': 'bg-yellow-100 text-yellow-800',
-        'Writing': 'bg-indigo-100 text-indigo-800',
-        'Coding': 'bg-red-100 text-red-800'
-      };
-
-      // DOM Elements
-      const promptContainer = document.getElementById('promptContainer');
-      const searchInput = document.getElementById('searchInput');
-      const categoryFilter = document.getElementById('categoryFilter');
-      const randomButton = document.getElementById('randomButton');
-
-      // Render prompt cards
-      function renderPrompts(prompts) {
-        if (!prompts || prompts.length === 0) {
-          promptContainer.innerHTML = `
-            <div class="text-center py-12 col-span-full">
-              <i class="fas fa-search text-3xl text-gray-400 mb-4"></i>
-              <p class="text-lg text-gray-700">No prompts found</p>
-              <p class="text-gray-500 mt-2">Try adjusting your search or filter criteria</p>
-            </div>
-          `;
-          return;
-        }
-
-        promptContainer.innerHTML = prompts.map(prompt => `
-          <div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300 fade-in">
-            <div class="p-6">
-              <div class="flex justify-between items-start">
-                <h3 class="text-lg font-semibold text-gray-900">${prompt.title}</h3>
-                <span class="px-2 py-1 text-xs font-medium rounded-full ${categoryColors[prompt.category] || 'bg-gray-100 text-gray-800'}">
-                  ${prompt.category}
-                </span>
-              </div>
-              <p class="mt-3 text-gray-600 truncate-3">${prompt.prompt}</p>
-              <div class="mt-4 flex justify-end">
-                <button 
-                  class="copy-button px-4 py-2 text-sm font-medium text-primary bg-white border border-primary rounded-md hover:bg-primary hover:text-white transition-colors duration-200"
-                  data-prompt="${encodeURIComponent(prompt.prompt)}"
-                >
-                  <i class="far fa-copy mr-1"></i> Copy
-                </button>
-              </div>
-            </div>
-          </div>
-        `).join('');
-        
-        // Add event listeners to copy buttons
-        document.querySelectorAll('.copy-button').forEach(button => {
-          button.addEventListener('click', handleCopy);
-        });
+    async function loadPrompts() {
+      try {
+        const res = await fetch("https://raw.githubusercontent.com/Munish87/aipromptcollection/main/prompts.json");
+        const data = await res.json();
+        console.log("Loaded prompts from GitHub:", data);
+        allPrompts = data;
+        filteredPrompts = [...allPrompts];
+        renderPrompts(filteredPrompts);
+      } catch (err) {
+        console.error("Error loading prompts:", err);
+        document.getElementById("promptContainer").innerHTML =
+          "<p class='text-red-500'>⚠️ Failed to load prompts.</p>";
       }
+    }
 
-      // Copy to clipboard
-      function handleCopy(event) {
-        const button = event.currentTarget;
-        const promptText = decodeURIComponent(button.dataset.prompt);
-        
-        navigator.clipboard.writeText(promptText).then(() => {
-          // Visual feedback
-          const originalText = button.innerHTML;
-          button.innerHTML = '<i class="fas fa-check mr-1"></i> Copied!';
-          setTimeout(() => {
-            button.innerHTML = originalText;
-          }, 2000);
-        });
+    function renderPrompts(prompts) {
+      const container = document.getElementById("promptContainer");
+      container.innerHTML = "";
+      if (!prompts.length) {
+        container.innerHTML = "<p class='text-gray-500'>No prompts found.</p>";
+        return;
       }
+      prompts.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "bg-white shadow-md rounded-lg p-4";
+        card.innerHTML = `
+          <h2 class="text-lg font-semibold mb-2">${p.title}</h2>
+          <p class="text-sm text-gray-500 mb-2">Category: ${p.category}</p>
+          <pre class="bg-gray-100 p-2 rounded text-sm whitespace-pre-wrap">${p.prompt}</pre>
+        `;
+        container.appendChild(card);
+      });
+    }
 
-      // Filter prompts based on search and category
-      function filterPrompts() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const category = categoryFilter.value;
-        
-        filteredPrompts = allPrompts.filter(prompt => {
-          const matchesSearch = prompt.title.toLowerCase().includes(searchTerm) || 
-                                prompt.prompt.toLowerCase().includes(searchTerm);
-          const matchesCategory = category === 'all' || prompt.category === category;
-          return matchesSearch && matchesCategory;
-        });
-        
-       loadPrompts();
-      }
+    function showRandomPrompt() {
+      if (!filteredPrompts.length) return;
+      const randomIndex = Math.floor(Math.random() * filteredPrompts.length);
+      const randomPrompt = filteredPrompts[randomIndex];
+      renderPrompts([randomPrompt]);
+    }
 
-     let allPrompts = [];
-let filteredPrompts = [];
-
-// Fetch prompts from GitHub
-async function loadPrompts() {
-  try {
-    const res = await fetch("https://raw.githubusercontent.com/Munish87/aipromptcollection/refs/heads/main/prompts.json");
-    const data = await res.json();
-    console.log("Loaded prompts from GitHub:", data);
-    allPrompts = data;
-    filteredPrompts = [...allPrompts];
-  
-  } catch (err) {
-    console.error("Error loading prompts:", err);
-    document.getElementById("promptContainer").innerHTML =
-      "<p class='text-red-500'>⚠️ Failed to load prompts.</p>";
-  }
-}
-
-// Run when page loads
-window.onload = loadPrompts;
-
-
-      // Event listeners
-      searchInput.addEventListener('input', filterPrompts);
-      categoryFilter.addEventListener('change', filterPrompts);
-      randomButton.addEventListener('click', showRandomPrompt);
-
-      // Initialize with sample data
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const query = e.target.value.toLowerCase();
+      filteredPrompts = allPrompts.filter(p =>
+        p.title.toLowerCase().includes(query) ||
+        p.category.toLowerCase().includes(query) ||
+        p.prompt.toLowerCase().includes(query)
+      );
       renderPrompts(filteredPrompts);
     });
 
-    function showRandomPrompt() {
-  if (!filteredPrompts.length) return;
-  const randomIndex = Math.floor(Math.random() * filteredPrompts.length);
-  const randomPrompt = filteredPrompts[randomIndex];
-  renderPrompts([randomPrompt]);
-}
-
+    window.onload = loadPrompts;
   </script>
+
 </body>
-
 </html>
-
-
-
-
-
-
-
