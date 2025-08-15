@@ -254,10 +254,19 @@ window.onload = loadPrompts;
       // Initialize with sample data
       renderPrompts(filteredPrompts);
     });
+
+    function showRandomPrompt() {
+  if (!filteredPrompts.length) return;
+  const randomIndex = Math.floor(Math.random() * filteredPrompts.length);
+  const randomPrompt = filteredPrompts[randomIndex];
+  renderPrompts([randomPrompt]);
+}
+
   </script>
 </body>
 
 </html>
+
 
 
 
