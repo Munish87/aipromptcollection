@@ -31,7 +31,7 @@
 
     async function loadPrompts() {
       try {
-        const res = await fetch("https://raw.githubusercontent.com/Munish87/aipromptcollection/main/prompts.json");
+        const res = await fetch("https://raw.githubusercontent.com/Munish87/aipromptcollection/refs/heads/main/prompts.json");
         const data = await res.json();
         console.log("Loaded prompts from GitHub:", data);
         allPrompts = data;
