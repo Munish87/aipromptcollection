@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Creative Storytelling",
+    "category": "Writing",
+    "prompt": "Write a short story about a character who discovers they can talk to animals in a city."
+  },
+  {
+    "title": "Logo Design",
+    "category": "MidJourney",
+    "prompt": "Minimalist logo, vector art, futuristic style."
+  },
+  {
+    "title": "Cold Email Generator",
+    "category": "Marketing",
+    "prompt": "Write a cold email pitching a SaaS product to startups."
+  }
+]
