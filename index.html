@@ -227,65 +227,28 @@ async function loadPrompts() {
        loadPrompts();
       }
 
-      // Show random prompt
-      function showRandomPrompt() {
-        if (allPrompts.length === 0) return;
-        
-        const randomIndex = Math.floor(Math.random() * allPrompts.length);
-        const randomPrompt = allPrompts[randomIndex];
-        
-        // Create modal for random prompt
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
-        modal.innerHTML = `
-          <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div class="p-6">
-              <div class="flex justify-between items-start mb-4">
-                <h3 class="text-xl font-bold text-gray-900">${randomPrompt.title}</h3>
-                <button class="close-modal text-gray-500 hover:text-gray-700">
-                  <i class="fas fa-times text-xl"></i>
-                </button>
-              </div>
-              <div class="mb-4">
-                <span class="px-2 py-1 text-xs font-medium rounded-full ${categoryColors[randomPrompt.category] || 'bg-gray-100 text-gray-800'}">
-                  ${randomPrompt.category}
-                </span>
-              </div>
-              <p class="text-gray-700 whitespace-pre-wrap">${randomPrompt.prompt}</p>
-              <div class="mt-6 flex justify-end">
-                <button class="copy-random px-4 py-2 bg-primary text-white rounded-md hover:bg-indigo-700 transition-colors">
-                  Copy to Clipboard
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-        
-        document.body.appendChild(modal);
-        
-        // Close modal handlers
-        modal.querySelector('.close-modal').addEventListener('click', () => {
-          document.body.removeChild(modal);
-        });
-        
-        // Copy button handler
-        modal.querySelector('.copy-random').addEventListener('click', () => {
-          navigator.clipboard.writeText(randomPrompt.prompt);
-          const copyButton = modal.querySelector('.copy-random');
-          const originalText = copyButton.textContent;
-          copyButton.textContent = 'Copied!';
-          setTimeout(() => {
-            copyButton.textContent = originalText;
-          }, 2000);
-        });
-        
-        // Close on backdrop click
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) {
-            document.body.removeChild(modal);
-          }
-        });
-      }
+     let allPrompts = [];
+let filteredPrompts = [];
+
+// Fetch prompts from GitHub
+async function loadPrompts() {
+  try {
+    const res = await fetch("https://raw.githubusercontent.com/Munish87/aipromptcollection/refs/heads/main/prompts.json?token=GHSAT0AAAAAADJEX4GYCE7A43FMT2AHYYR62E7ESNA");
+    const data = await res.json();
+    console.log("Loaded prompts from GitHub:", data);
+    allPrompts = data;
+    filteredPrompts = [...allPrompts];
+    renderPrompts(filteredPrompts); // this function already exists in your file
+  } catch (err) {
+    console.error("Error loading prompts:", err);
+    document.getElementById("promptContainer").innerHTML =
+      "<p class='text-red-500'>⚠️ Failed to load prompts.</p>";
+  }
+}
+
+// Run when page loads
+window.onload = loadPrompts;
+
 
       // Event listeners
       searchInput.addEventListener('input', filterPrompts);
@@ -297,4 +260,5 @@ async function loadPrompts() {
     });
   </script>
 </body>
+
 </html>
