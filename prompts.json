@@ -2,16 +2,241 @@
   {
     "title": "Creative Storytelling",
     "category": "Writing",
-    "prompt": "Write a short story about a character who discovers they can talk to animals in a city."
-  },
-  {
-    "title": "Logo Design",
-    "category": "MidJourney",
-    "prompt": "Minimalist logo, vector art, futuristic style."
+    "prompt": "Write a short story about a time traveler who accidentally changes one small event that has huge consequences."
   },
   {
     "title": "Cold Email Generator",
     "category": "Marketing",
-    "prompt": "Write a cold email pitching a SaaS product to startups."
+    "prompt": "Write a professional cold email pitching a SaaS product to a startup founder."
+  },
+  {
+    "title": "Logo Design",
+    "category": "MidJourney",
+    "prompt": "Minimalist tech startup logo, vector style, futuristic, clean lines."
+  },
+  {
+    "title": "Morning Productivity Plan",
+    "category": "Productivity",
+    "prompt": "Design a 3-hour morning routine for maximum energy and focus."
+  },
+  {
+    "title": "Python Helper",
+    "category": "Coding",
+    "prompt": "Write a Python function to find the top 3 most common words in a text file."
+  },
+  {
+    "title": "Startup Pitch Deck",
+    "category": "Business",
+    "prompt": "Create a 5-slide outline for a pitch deck for an AI healthcare startup."
+  },
+  {
+    "title": "Language Tutor",
+    "category": "Learning",
+    "prompt": "Teach me 10 useful phrases in French for traveling in Paris."
+  },
+  {
+    "title": "Self-Reflection",
+    "category": "Personal Growth",
+    "prompt": "List 5 questions I should ask myself to reflect on my progress this year."
+  },
+  {
+    "title": "Blog Post Ideas",
+    "category": "Marketing",
+    "prompt": "Generate 10 blog post ideas for a fitness website targeting busy professionals."
+  },
+  {
+    "title": "YouTube Script",
+    "category": "Writing",
+    "prompt": "Write a 1-minute YouTube intro script for a channel about AI tools."
+  },
+  {
+    "title": "Moodboard Creation",
+    "category": "MidJourney",
+    "prompt": "Create a cinematic moodboard of futuristic Tokyo neon streets."
+  },
+  {
+    "title": "Time Blocking",
+    "category": "Productivity",
+    "prompt": "Plan a weekly time-blocked calendar for a remote software developer."
+  },
+  {
+    "title": "Debugging Guide",
+    "category": "Coding",
+    "prompt": "Suggest ways to debug a Node.js application that keeps crashing randomly."
+  },
+  {
+    "title": "Business Slogan",
+    "category": "Business",
+    "prompt": "Generate 5 creative slogans for an eco-friendly clothing brand."
+  },
+  {
+    "title": "Learning Roadmap",
+    "category": "Learning",
+    "prompt": "Design a 30-day roadmap for learning basic data science from scratch."
+  },
+  {
+    "title": "Daily Affirmations",
+    "category": "Personal Growth",
+    "prompt": "Write 10 positive affirmations to boost confidence and self-worth."
+  },
+  {
+    "title": "Ad Copy",
+    "category": "Marketing",
+    "prompt": "Write a short ad copy for Instagram to promote a meditation app."
+  },
+  {
+    "title": "Fantasy World",
+    "category": "Writing",
+    "prompt": "Describe a fantasy world where magic is powered by human emotions."
+  },
+  {
+    "title": "App Icon",
+    "category": "MidJourney",
+    "prompt": "Flat design app icon for a finance tracker, modern, gradient colors."
+  },
+  {
+    "title": "Focus Routine",
+    "category": "Productivity",
+    "prompt": "Suggest a 25-minute deep work routine with breaks following the Pomodoro technique."
+  },
+  {
+    "title": "Code Refactor",
+    "category": "Coding",
+    "prompt": "Refactor this JavaScript function to be cleaner and more efficient."
+  },
+  {
+    "title": "Investor Questions",
+    "category": "Business",
+    "prompt": "List 10 common questions investors ask startup founders during a pitch."
+  },
+  {
+    "title": "Quick Lesson",
+    "category": "Learning",
+    "prompt": "Explain blockchain to me like I’m 12 years old."
+  },
+  {
+    "title": "Gratitude Journal",
+    "category": "Personal Growth",
+    "prompt": "Generate 5 gratitude journaling prompts for daily reflection."
+  },
+  {
+    "title": "Landing Page Copy",
+    "category": "Marketing",
+    "prompt": "Write a persuasive headline and subheadline for a new productivity app."
+  },
+  {
+    "title": "Character Backstory",
+    "category": "Writing",
+    "prompt": "Create a backstory for a detective who can’t remember their own past."
+  },
+  {
+    "title": "Cyberpunk City",
+    "category": "MidJourney",
+    "prompt": "Cyberpunk Tokyo skyline at night, neon lights, Blade Runner vibes."
+  },
+  {
+    "title": "Weekly Plan",
+    "category": "Productivity",
+    "prompt": "Plan a weekly study routine for a college student balancing part-time work."
+  },
+  {
+    "title": "SQL Query",
+    "category": "Coding",
+    "prompt": "Write an SQL query to find the top 5 best-selling products in a store database."
+  },
+  {
+    "title": "Brand Values",
+    "category": "Business",
+    "prompt": "List 5 brand values for a luxury watch company."
+  },
+  {
+    "title": "Quick Tutorial",
+    "category": "Learning",
+    "prompt": "Teach me the basics of CSS Grid in 5 simple steps."
+  },
+  {
+    "title": "Goal Setting",
+    "category": "Personal Growth",
+    "prompt": "Help me create 3 SMART goals for improving my fitness."
+  },
+  {
+    "title": "SEO Keywords",
+    "category": "Marketing",
+    "prompt": "Generate SEO keywords for a blog about vegan recipes."
+  },
+  {
+    "title": "Poetry",
+    "category": "Writing",
+    "prompt": "Write a short poem about resilience and hope."
+  },
+  {
+    "title": "Minimal Interior",
+    "category": "MidJourney",
+    "prompt": "Minimalist Scandinavian living room, white and oak wood, soft lighting."
+  },
+  {
+    "title": "Task Prioritization",
+    "category": "Productivity",
+    "prompt": "Create a task priority list using the Eisenhower Matrix method."
+  },
+  {
+    "title": "Regex Help",
+    "category": "Coding",
+    "prompt": "Write a regex to validate an email address."
+  },
+  {
+    "title": "Elevator Pitch",
+    "category": "Business",
+    "prompt": "Write a 30-second elevator pitch for an AI-powered tutoring app."
+  },
+  {
+    "title": "Quick Facts",
+    "category": "Learning",
+    "prompt": "Give me 5 fun facts about black holes."
+  },
+  {
+    "title": "Mindfulness Prompts",
+    "category": "Personal Growth",
+    "prompt": "Generate 5 mindfulness exercises I can do in under 5 minutes."
+  },
+  {
+    "title": "Ad Hook",
+    "category": "Marketing",
+    "prompt": "Write a catchy TikTok ad hook for a skincare product."
+  },
+  {
+    "title": "Sci-Fi Concept",
+    "category": "Writing",
+    "prompt": "Invent a futuristic gadget that changes the way humans communicate."
+  },
+  {
+    "title": "Book Cover",
+    "category": "MidJourney",
+    "prompt": "Fantasy book cover, epic castle, dragon in the sky, painterly style."
+  },
+  {
+    "title": "Morning Routine",
+    "category": "Productivity",
+    "prompt": "Suggest a 20-minute morning routine for better focus."
+  },
+  {
+    "title": "API Design",
+    "category": "Coding",
+    "prompt": "Design a REST API structure for a note-taking app."
+  },
+  {
+    "title": "Competitor Analysis",
+    "category": "Business",
+    "prompt": "Compare 3 major competitors in the food delivery industry."
+  },
+  {
+    "title": "Mini Lesson",
+    "category": "Learning",
+    "prompt": "Explain the basics of quantum computing in simple terms."
+  },
+  {
+    "title": "Journaling Prompts",
+    "category": "Personal Growth",
+    "prompt": "List 10 deep journaling prompts for self-discovery."
   }
 ]
