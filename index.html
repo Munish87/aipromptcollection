@@ -123,7 +123,7 @@ let filteredPrompts = [];
 
 async function loadPrompts() {
   try {
-    const res = await fetch("prompts.json");
+   const res = await fetch("prompts.json");
     allPrompts = await res.json();
     filteredPrompts = [...allPrompts];
     renderPrompts(filteredPrompts);
@@ -262,6 +262,7 @@ window.onload = loadPrompts;
 </body>
 
 </html>
+
 
 
 
