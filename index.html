@@ -13,13 +13,16 @@
     <p class="text-gray-500">Curated JSON list of best prompts for ChatGPT, MidJourney, etc.</p>
   </header>
 
-  <main class="max-w-4xl mx-auto p-6">
-    <div class="flex items-center gap-4 mb-6">
+  <main class="max-w-5xl mx-auto p-6">
+    <div class="flex flex-col md:flex-row items-center gap-4 mb-6">
+      <select id="categoryFilter" class="border p-2 rounded-lg shadow-sm">
+        <option value="all">All Categories</option>
+      </select>
       <input id="searchInput" type="text" placeholder="Search prompts..." class="flex-grow border p-2 rounded-lg shadow-sm">
       <button onclick="showRandomPrompt()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow">Random Prompt</button>
     </div>
 
-    <div id="promptContainer" class="grid gap-4"></div>
+    <div id="promptContainer" class="grid md:grid-cols-2 gap-4"></div>
   </main>
 
   <script>
@@ -33,12 +36,24 @@
         console.log("Loaded prompts from GitHub:", data);
         allPrompts = data;
         filteredPrompts = [...allPrompts];
+        populateCategories();
         renderPrompts(filteredPrompts);
       } catch (err) {
         console.error("Error loading prompts:", err);
         document.getElementById("promptContainer").innerHTML =
           "<p class='text-red-500'>⚠️ Failed to load prompts.</p>";
       }
+    }
+
+    function populateCategories() {
+      const categorySet = new Set(allPrompts.map(p => p.category));
+      const categoryFilter = document.getElementById("categoryFilter");
+      categorySet.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat.toLowerCase();
+        option.textContent = cat;
+        categoryFilter.appendChild(option);
+      });
     }
 
     function renderPrompts(prompts) {
@@ -60,6 +75,25 @@
       });
     }
 
+    function applyFilters() {
+      const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+      const selectedCategory = document.getElementById("categoryFilter").value;
+
+      filteredPrompts = allPrompts.filter(p => {
+        const matchesSearch =
+          p.title.toLowerCase().includes(searchQuery) ||
+          p.category.toLowerCase().includes(searchQuery) ||
+          p.prompt.toLowerCase().includes(searchQuery);
+
+        const matchesCategory =
+          selectedCategory === "all" || p.category.toLowerCase() === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+      });
+
+      renderPrompts(filteredPrompts);
+    }
+
     function showRandomPrompt() {
       if (!filteredPrompts.length) return;
       const randomIndex = Math.floor(Math.random() * filteredPrompts.length);
@@ -67,15 +101,8 @@
       renderPrompts([randomPrompt]);
     }
 
-    document.getElementById("searchInput").addEventListener("input", (e) => {
-      const query = e.target.value.toLowerCase();
-      filteredPrompts = allPrompts.filter(p =>
-        p.title.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query) ||
-        p.prompt.toLowerCase().includes(query)
-      );
-      renderPrompts(filteredPrompts);
-    });
+    document.getElementById("searchInput").addEventListener("input", applyFilters);
+    document.getElementById("categoryFilter").addEventListener("change", applyFilters);
 
     window.onload = loadPrompts;
   </script>
